@@ -1,4 +1,6 @@
-package cotuba;
+package cotuba.cli;
+
+import cotuba.application.Cotuba;
 
 import java.nio.file.Path;
 
@@ -20,19 +22,8 @@ public class Main {
       arquivoDeSaida = opcoesCLI.getArquivoDeSaida();
       modoVerboso = opcoesCLI.isModoVerboso();
 
-      if ("pdf".equals(formato)) {
-
-        var geradorPDF = new GeradorPDF();
-        geradorPDF.gera(diretorioDosMD, arquivoDeSaida);
-
-      } else if ("epub".equals(formato)) {
-
-        var geradorEPUB = new GeradorEPUB();
-        geradorEPUB.gera(diretorioDosMD, arquivoDeSaida);
-
-      } else {
-        throw new IllegalArgumentException("Formato do ebook inválido: " + formato);
-      }
+      var cotuba = new Cotuba();
+      cotuba.executa(formato, diretorioDosMD, arquivoDeSaida);
 
       System.out.println("Arquivo gerado com sucesso: " + arquivoDeSaida);
 
